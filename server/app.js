@@ -1,20 +1,20 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
+const dotenv = require('dotenv');
 const app = express();
-const DB = 'mongodb+srv://mohit3wadhwa:PASSWORD@cluster0.fumpn.mongodb.net/myPilotDB?retryWrites=true&w=majority';
 
-mongoose.connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-}).then(() => {
-    console.log('Connection Successful');
+dotenv.config({path:'./config.env'});
 
-}).catch((err) => {
-    console.log('Unsuccessful Connection')
-});
+require('./connectDB');
+require('./models/userSchema');
+
+app.use(require('./routes/auth'));
+
+const PORT = process.env.PORT;
+
+
+
+// const DB = 'mongodb+srv://mohit3wadhwa:PASSWORD@cluster0.fumpn.mongodb.net/myPilotDB?retryWrites=true&w=majority';
+
 
 
 // Middleware
@@ -40,6 +40,6 @@ app.get('/contact', (req, res) => {
 });
 
 
-app.listen(3000, () => {
-    console.log("Server is running ...")
+app.listen(PORT, () => {
+    console.log(`Server is running ...at ${PORT}`)
 })
