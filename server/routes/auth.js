@@ -7,7 +7,8 @@ router.get('/', (req, res) => {
 
 router.post('/register', (req, res) => {
     console.log(req.body)
-    res.send('Registration Page');
+    res.json({message: req.body})
+    //res.send('Registration Page');
 });
 
 module.exports =router;
